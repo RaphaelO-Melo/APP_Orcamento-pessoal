@@ -1,3 +1,5 @@
+let bd = new BDados();
+
 //* Cadastro da despesa
 function cadastrarDespesa() {
     
@@ -12,14 +14,14 @@ function cadastrarDespesa() {
     //TODO: Criar novo objeto Despesa com os valores obtidos
     let novaDespesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, valor.value, descricao.value)
 
-    //TODO: Gravar despesa criada
-    gravarDespesa(novaDespesa)
-}
-
-//* Gravação de uma despesa no Local Storage
-function gravarDespesa(despesa) {
-
-    //Converte objeto para notação JSON
-    let dJSON = JSON.stringify(despesa)
-    localStorage.setItem('despesa', dJSON)
+    //? Os dados da despesa são válidos?
+    if(novaDespesa.validarDados()){
+        //TODO: Gravar despesa criada
+        bd.gravarDespesa(novaDespesa)
+        //Exibir mensagem de sucesso
+        $('#sucessoGravacao').modal('show')
+    } else {
+        //!Dados inválidos, exibir modal com erro
+        $('#erroGravacao').modal('show')
+    }    
 }

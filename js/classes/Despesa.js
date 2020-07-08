@@ -23,4 +23,13 @@ class Despesa {
     get valor(){return this._valor}
 
     get descricao(){return this._descricao}
+
+    //Métodos
+    validarDados(){
+        for(let x in this){
+            if(this[x] == undefined || this[x] == '' || this[x] == null)
+                return false
+        }
+        return true
+    }
 }
