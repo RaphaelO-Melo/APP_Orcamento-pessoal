@@ -65,7 +65,7 @@ function carregaDespesas(despesas = [], filtro = false){
         }
         linha.insertCell(1).innerHTML = d._tipo;
         linha.insertCell(2).innerHTML = d._descricao;
-        linha.insertCell(3).innerHTML = `R$ ${d._valor}`;
+        linha.insertCell(3).innerHTML = `R$ ${d._valor},00`;
         //Cria botão de exclusão
         let btn = document.createElement('button'); 
         btn.className = 'btn btn-danger'
@@ -78,7 +78,6 @@ function carregaDespesas(despesas = [], filtro = false){
             
             let id = this.id.replace('id_despesa_','');
             bd.removerRegistro(id);
-            window.location.reload();
         }
 
         linha.insertCell(4).append(btn);
@@ -132,4 +131,71 @@ function limpaDados(){
     document.getElementById('tipo').value ='';
     document.getElementById('valor').value ='';
     document.getElementById('descricao').value ='';
+}
+
+//* Filtra campos para usar só números
+function somenteNumeros(e, max) {
+    let charCode = e.charCode ? e.charCode : e.keyCode;
+    // charCode 8 = backspace   
+    // charCode 9 = tab
+   if (charCode != 8 && charCode != 9) {
+       // charCode 48 equivale a 0   
+       // charCode 57 equivale a 9
+       let dia = document.getElementById('dia');    
+       let money = document.getElementById('valor');       
+            
+       if ((charCode < 48 || charCode > 57)||(dia.value.length >= max)||(money.value.length >= max)) {
+          return false;
+       }
+   }
+}
+
+//* Filtra a data
+function verificaData(){
+    //Coleta referencia do campo data
+    let num = document.getElementById('dia');       
+    let mes = document.getElementById('mes');
+    let ano = parseInt(document.getElementById('ano').value);
+
+    //Verificação máxima padrão
+    num.value > 31 ? num.value = 31 : num.value = num.value;
+
+    //Se meses que possuem 30 dias
+    if(mes.value == 4 || mes.value == 6 || mes.value == 9 || mes.value == 11){
+        num.value > 30 ? num.value = 30 : num.value = num.value;
+    }
+
+    //Cálculo do ano bissexto
+    if(mes.value == 2){
+        if ((ano % 4 == 0) && ((ano % 100 != 0)) || (ano % 400 == 0)){
+            num.value > 29 ? num.value = 29 : num.vaue = num.value;
+        } else {
+            num.value > 28 ? num.value = 28 : num.vaue = num.value;
+        }
+    }
+}
+
+//* Filtra ano
+function verificaAno(){
+    let ano = document.getElementById('ano');
+    ano.value > 2020 ? ano.value = 2020 : ano.value = ano.value;
+}
+
+//* Filtra valores mínimos
+function verificaMin(){
+    let num = document.getElementById('dia');
+    let ano = document.getElementById('ano');
+
+    if(num.value < 1  && num.value != '')
+        num.value = 1;
+
+    if(ano.value < 1920  && ano.value != '')
+        ano.value = 1920;
+    
+        verificaData();
+}
+
+//* Reinicia página
+function reiniciaPagina(){
+    window.location.reload();
 }

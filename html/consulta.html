@@ -45,33 +45,10 @@
 
       <div class="row mb-2">
         <div class="col-md-2 mb-2">
-          <select class="form-control" id="ano">
-            <option value="">Ano</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-            <option value="2017">2017</option>
-            <option value="2016">2016</option>
-            <option value="2015">2015</option>
-            <option value="2014">2014</option>
-            <option value="2013">2013</option>
-            <option value="2012">2012</option>
-            <option value="2011">2011</option>
-            <option value="2010">2010</option>
-            <option value="2009">2009</option>
-            <option value="2008">2008</option>
-            <option value="2007">2007</option>
-            <option value="2006">2006</option>
-            <option value="2005">2005</option>
-            <option value="2004">2004</option>
-            <option value="2003">2003</option>
-            <option value="2002">2002</option>
-            <option value="2001">2001</option>
-            <option value="2000">2000</option>
-          </select>
+            <input type="number" class="form-control" placeholder="Ano" id="ano" min="1920" max="2020" onkeypress="return somenteNumeros(event, 4)" onkeyup="verificaAno()" onblur="verificaMin()"/>
         </div>
 
-        <div class="col-md-2 mb-2">
+        <div class="col-md-3 mb-2">
           <select class="form-control" id="mes">
             <option value="">Mês</option>
             <option value="1">Janeiro</option>
@@ -90,10 +67,10 @@
         </div>
         
         <div class="col-md-2 mb-2">
-          <input type="text" class="form-control" placeholder="Dia" id="dia" />
+          <input type="number" class="form-control" placeholder="Dia" id="dia" min="1" max="31" onkeypress="return somenteNumeros(event, 2)" onkeyup="verificaData()" onblur="verificaMin()"/>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
           <select class="form-control" id="tipo">
             <option value="">Tipo</option>
             <option value="1">Alimentação</option>
@@ -106,12 +83,12 @@
       </div>
 
       <div class="row  mb-5">
-        <div class="col-md-8 mb-2">
-          <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
+        <div class="col-md-7 mb-2">
+          <input type="text" class="form-control" placeholder="Descrição" id="descricao"/>
         </div>
 
-        <div class="col-md-2 mb-2">
-          <input type="text" class="form-control" placeholder="Valor" id="valor" />
+        <div class="col-md-3 mb-2">
+          <input type="number" class="form-control" placeholder="Valor (R$)" id="valor" min="1" max="999999" onkeypress="return somenteNumeros(event, 6)"/>
         </div>
 
         <div class="col-md-2 d-flex justify-content-end mb-2">
@@ -138,6 +115,25 @@
 
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header text-success" id="modalHeader">
+            <h5 class="modal-title" id="modalLabel">Registro atualizado</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reiniciaPagina()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            A despesa foi removida com êxito
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="modalBtn" data-dismiss="modal" onclick="reiniciaPagina()">Continuar consulta</button>
+          </div>
         </div>
       </div>
     </div>

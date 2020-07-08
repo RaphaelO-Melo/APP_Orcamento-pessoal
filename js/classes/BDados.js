@@ -10,6 +10,7 @@ class BDados {
     }
 
     gravarDespesa(despesa) {
+        console.log('Gravando despesa');
         //Cria um novo ID
         let id = this.criaID();
         //Converte objeto para notação JSON
@@ -22,6 +23,8 @@ class BDados {
 
     criaID(){
         let proximoID = localStorage.getItem('id');
+        console.log(`próximo ID: ${parseInt(proximoID) + 1}`);
+
         //Retorna valor do ultimo ID + 1
         return parseInt(proximoID) + 1;
     }
@@ -77,5 +80,6 @@ class BDados {
 
     removerRegistro (id) {
         localStorage.removeItem(id);
+        $('#modalExclusao').modal('show');
     }
 }
