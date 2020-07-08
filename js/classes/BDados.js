@@ -26,7 +26,7 @@ class BDados {
         return parseInt(proximoID) + 1;
     }
 
-    recuperarRegistro(){
+    recuperarTodoRegistro(){
         //Array de despesas
         let despesas = [];
         //Coleta a referência do que seria o próximo ID
@@ -36,6 +36,7 @@ class BDados {
             let despesa = JSON.parse(localStorage.getItem(i));
             if(despesa === null)
                 continue;
+            despesa.id = i;
             despesas.push(despesa);
         }
 
@@ -44,7 +45,7 @@ class BDados {
 
     pesquisarDespesa(despesa){
         //Recupera o array com registros
-        let despesasFiltradas = this.recuperarRegistro();
+        let despesasFiltradas = this.recuperarTodoRegistro();
         
         //TODO: Retornar array após apolicação dos filtros nos objetos usando o .filter 
         //ano
@@ -72,5 +73,9 @@ class BDados {
             despesasFiltradas = despesasFiltradas.filter(d => d._descricao == despesa._descricao)
 
         return despesasFiltradas;
+    }
+
+    removerRegistro (id) {
+        localStorage.removeItem(id);
     }
 }

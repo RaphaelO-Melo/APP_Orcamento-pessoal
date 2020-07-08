@@ -32,10 +32,13 @@ function cadastrarDespesa() {
 }
 
 //* Recupera lista de despesas
-function carregaDespesas(){
+function carregaDespesas(despesas = [], filtro = false){
 
-    let despesas = bd.recuperarRegistro();
+    if(despesas.length == 0 && filtro == false)
+        despesas = bd.recuperarTodoRegistro();
+    
     let listaDespesas = document.getElementById('listaDespesas');
+    listaDespesas.innerHTML = '';
 
     despesas.forEach(function(d){
         //Criando linha <tr>
@@ -63,6 +66,22 @@ function carregaDespesas(){
         linha.insertCell(1).innerHTML = d._tipo;
         linha.insertCell(2).innerHTML = d._descricao;
         linha.insertCell(3).innerHTML = `R$ ${d._valor}`;
+        //Cria botão de exclusão
+        let btn = document.createElement('button'); 
+        btn.className = 'btn btn-danger'
+        btn.innerHTML = '<i class="fas fa-times"> </i>'
+        btn.id = `id_despesa_${d.id}`;
+
+        console.log(btn)
+
+        btn.onclick = function(){
+            
+            let id = this.id.replace('id_despesa_','');
+            bd.removerRegistro(id);
+            window.location.reload();
+        }
+
+        linha.insertCell(4).append(btn);
     })
 }
 
@@ -102,37 +121,7 @@ function pesquisarDespesa(){
 
     //Pesquisa as despesas com o modelo de pesquisa
     let despesas = bd.pesquisarDespesa(despesaModelo);
-
-    let listaDespesas = document.getElementById('listaDespesas');
-    listaDespesas.innerHTML = '';
-
-    despesas.forEach(function(d){
-        //Criando linha <tr>
-        let linha = listaDespesas.insertRow();
-        //Criando coluna <td>
-        linha.insertCell(0).innerHTML = `${d._dia}/${d._mes}/${d._ano}`;
-        switch(d._tipo){
-            case '1': 
-                d._tipo = 'Alimentação'
-                break;
-            case '2': 
-                d._tipo = 'Educação'
-                break;
-            case '3': 
-                d._tipo = 'Lazer'
-                break;
-            case '4': 
-                d._tipo = 'Saúde'
-                break;
-            case '5': 
-                d._tipo = 'Transporte'
-                break;
-
-        }
-        linha.insertCell(1).innerHTML = d._tipo;
-        linha.insertCell(2).innerHTML = d._descricao;
-        linha.insertCell(3).innerHTML = `R$ ${d._valor}`;
-    })
+    carregaDespesas(despesas, true);
 }
 
 //* Limpa os campos da despesa
