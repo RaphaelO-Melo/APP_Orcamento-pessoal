@@ -87,6 +87,54 @@ function modificaModal(success){
     success ? button.className = 'btn btn-success' : button.className = 'btn btn-danger';
 }
 
+//* Pesquisa uma despesa
+function pesquisarDespesa(){
+    //TODO: Capturar valores dos campos
+    let ano = document.getElementById('ano').value;
+    let mes = document.getElementById('mes').value;
+    let dia = document.getElementById('dia').value;
+    let tipo = document.getElementById('tipo').value;
+    let valor = document.getElementById('valor').value;
+    let descricao = document.getElementById('descricao').value;
+
+    //TODO: Criar novo objeto Despesa com os valores obtidos
+    let despesaModelo = new Despesa(ano, mes, dia, tipo, valor, descricao);
+
+    //Pesquisa as despesas com o modelo de pesquisa
+    let despesas = bd.pesquisarDespesa(despesaModelo);
+
+    let listaDespesas = document.getElementById('listaDespesas');
+    listaDespesas.innerHTML = '';
+
+    despesas.forEach(function(d){
+        //Criando linha <tr>
+        let linha = listaDespesas.insertRow();
+        //Criando coluna <td>
+        linha.insertCell(0).innerHTML = `${d._dia}/${d._mes}/${d._ano}`;
+        switch(d._tipo){
+            case '1': 
+                d._tipo = 'Alimentação'
+                break;
+            case '2': 
+                d._tipo = 'Educação'
+                break;
+            case '3': 
+                d._tipo = 'Lazer'
+                break;
+            case '4': 
+                d._tipo = 'Saúde'
+                break;
+            case '5': 
+                d._tipo = 'Transporte'
+                break;
+
+        }
+        linha.insertCell(1).innerHTML = d._tipo;
+        linha.insertCell(2).innerHTML = d._descricao;
+        linha.insertCell(3).innerHTML = `R$ ${d._valor}`;
+    })
+}
+
 //* Limpa os campos da despesa
 function limpaDados(){
     document.getElementById('ano').value ='';

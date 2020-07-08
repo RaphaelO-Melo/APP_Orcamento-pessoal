@@ -41,4 +41,36 @@ class BDados {
 
         return despesas;
     }
+
+    pesquisarDespesa(despesa){
+        //Recupera o array com registros
+        let despesasFiltradas = this.recuperarRegistro();
+        
+        //TODO: Retornar array após apolicação dos filtros nos objetos usando o .filter 
+        //ano
+        if(despesa._ano != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._ano == despesa._ano)
+
+        //mes
+        if(despesa._mes != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._mes == despesa._mes)
+
+        //dia
+        if(despesa._dia != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._dia == despesa._dia)
+
+        //tipo
+        if(despesa._tipo != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._tipo == despesa._tipo)
+
+        //valor
+        if(despesa._valor != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._valor == despesa._valor)
+
+        //descrição
+        if(despesa._descricao != '')
+            despesasFiltradas = despesasFiltradas.filter(d => d._descricao == despesa._descricao)
+
+        return despesasFiltradas;
+    }
 }
