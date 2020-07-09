@@ -1,152 +1,181 @@
-<html>
-	<head>
-    <meta charset="utf-8" />
-		<title>App: Orçamento pessoal - Consulta</title>
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>App: Orçamento pessoal - Consulta</title>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <!-- Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+      <!-- Font Awesome -->
+      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-	</head>
+    </head>
 
-  <body onload="carregaDespesas()">
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-           <img src="../src/images/logo.png" width="50" height="35" alt="Orçamento pessoal">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.html">Cadastro</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="consulta.html">Consulta</a>
-            </li>
-          </ul>
-          
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <div class="row mb-5">
-        <div class="col">
-          <h1 class="display-4">Consulta de despesas</h1>
-        </div>
-      </div>
-
-      <div class="row mb-2">
-        <div class="col-md-2 mb-2">
-            <input type="number" class="form-control" placeholder="Ano" id="ano" min="1920" max="2020" onkeypress="return somenteNumeros(event, 4)" onkeyup="verificaAno()" onblur="verificaMin()"/>
-        </div>
-
-        <div class="col-md-3 mb-2">
-          <select class="form-control" id="mes">
-            <option value="">Mês</option>
-            <option value="1">Janeiro</option>
-            <option value="2">Fevereiro</option>
-            <option value="3">Março</option>
-            <option value="4">Abril</option>
-            <option value="5">Maio</option>
-            <option value="6">Junho</option>
-            <option value="7">Julho</option>
-            <option value="8">Agosto</option>
-            <option value="9">Setembro</option>
-            <option value="10">Outubro</option>
-            <option value="11">Novembro</option>
-            <option value="12">Dezembro</option>
-          </select>
-        </div>
-        
-        <div class="col-md-2 mb-2">
-          <input type="number" class="form-control" placeholder="Dia" id="dia" min="1" max="31" onkeypress="return somenteNumeros(event, 2)" onkeyup="verificaData()" onblur="verificaMin()"/>
-        </div>
-
-        <div class="col-md-5">
-          <select class="form-control" id="tipo">
-            <option value="">Tipo</option>
-            <option value="1">Alimentação</option>
-            <option value="2">Educação</option>
-            <option value="3">Lazer</option>
-            <option value="4">Saúde</option>
-            <option value="5">Transporte</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row  mb-5">
-        <div class="col-md-7 mb-2">
-          <input type="text" class="form-control" placeholder="Descrição" id="descricao"/>
-        </div>
-
-        <div class="col-md-3 mb-2">
-          <input type="number" class="form-control" placeholder="Valor (R$)" id="valor" min="1" max="999999" onkeypress="return somenteNumeros(event, 6)"/>
-        </div>
-
-        <div class="col-md-2 d-flex justify-content-end mb-2">
-          <button type="button" class="btn btn-primary" onclick="pesquisarDespesa()">
-            <i class="fas fa-search"></i>
+    <body onload="carregaDespesas()">
+      <!--Início NavBar-->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">  
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="../src/images/logo.png" width="50" height="35" alt="Orçamento pessoal">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">Cadastro</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="consulta.html">Consulta</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
+      <!--Final NavBar--> 
 
-      <div class="row">
-        <div class="col">
-          <table class="table" >
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Tipo</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th></th>
-              </tr>
-            </thead>
-
-            <tbody id="listaDespesas">
-
-            </tbody>
-          </table>
+      <!--Início Container-->
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col">
+            <h1 class="display-4">Consulta de despesas</h1>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header text-success" id="modalHeader">
-            <h5 class="modal-title" id="modalLabel">Registro atualizado</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reiniciaPagina()">
-              <span aria-hidden="true">&times;</span>
+        <!--Início linha 01-->
+        <div class="row mb-2">
+          <!--Início input ano-->
+          <div class="col-md-2 mb-2">
+            <input type="number" class="form-control" placeholder="Ano" id="ano" min="1920" max="2020" onkeypress="return somenteNumeros(event, 4)" onkeyup="verificaAno()" onblur="verificaMin()"/>
+          </div>
+          <!--Final input ano-->
+
+          <!--Início input mês-->
+          <div class="col-md-3 mb-2">
+            <select class="form-control" id="mes" onchange="verificaData()">
+              <option value="">Mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </div>
+          <!--Final input mês-->
+          
+          <!--Início input dia-->
+          <div class="col-md-2 mb-2">
+            <input type="number" class="form-control" placeholder="Dia" id="dia" min="1" max="31" onkeypress="return somenteNumeros(event, 2)" onkeyup="verificaData()" onblur="verificaMin()"/>
+          </div>
+          <!--Final input dia-->
+
+          <!--Início input tipo-->
+          <div class="col-md-5">
+            <select class="form-control" id="tipo">
+              <option value="">Tipo</option>
+              <option value="1">Alimentação</option>
+              <option value="2">Educação</option>
+              <option value="3">Lazer</option>
+              <option value="4">Saúde</option>
+              <option value="5">Transporte</option>
+            </select>
+          </div>
+          <!--Final input tipo-->
+        </div>
+        <!--Final linha 01-->
+
+        <!--Início linha 02-->
+        <div class="row  mb-5">
+          <!--Início input descrição-->
+          <div class="col-md-7 mb-2">
+            <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
+          </div>
+          <!--Final input descrição-->
+
+          <!--Início input valor-->
+          <div class="col-md-3 mb-2">
+            <input type="number" class="form-control" placeholder="Valor (R$)" id="valor" min="1" max="999999" onkeypress="return somenteNumeros(event, 6)"/>
+          </div>
+          <!--Final input valor-->
+
+          <!--Início botão pesquisar-->
+          <div class="col-md-2 d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-primary" onclick="pesquisarDespesa()">
+              <i class="fas fa-search"></i>
             </button>
           </div>
-          <div class="modal-body" id="modalBody">
-            A despesa foi removida com êxito
+          <!--Final botão pesquisar-->
+        </div>
+        <!--Final linha 02-->
+
+        <!--Início linha 03-->
+        <div class="row">
+          <!--Início tabela-->
+          <div class="col">
+            <table class="table" >
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Tipo</th>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                  <th></th>
+                </tr>
+              </thead>
+              
+              <tbody id="listaDespesas">
+                
+              </tbody>
+            </table>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" id="modalBtn" data-dismiss="modal" onclick="reiniciaPagina()">Continuar consulta</button>
+          <!--Final tabela-->
+        </div>
+        <!--Final linha 03-->
+      </div>
+      <!--Final Container-->
+
+      <!--Início Modal-->
+      <div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-success" id="modalHeader">
+              <h5 class="modal-title" id="modalLabel">Registro atualizado</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reiniciaPagina()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+              A despesa foi removida com êxito
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" id="modalBtn" data-dismiss="modal" onclick="reiniciaPagina()">Continuar consulta</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <!--Final Modal-->
 
-    <!--Custom Javascript-->
-    <script src="../js/classes/BDados.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/classes/Despesa.js"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  </body>	
+      <!--Custom Javascript-->
+      <script src="../js/classes/BDados.js"></script>
+      <script src="../js/app.js"></script>
+      <script src="../js/classes/Despesa.js"></script>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    </body>	
 
-</html>
+  </html>
